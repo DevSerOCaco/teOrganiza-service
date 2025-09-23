@@ -2,10 +2,8 @@ package com.finstep_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -13,15 +11,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-           http
-                   .csrf(csrf -> csrf.disable())
-                   .authorizeHttpRequests(auth -> auth
-                                   .requestMatchers("/auth/**", "/public/**").permitAll()
-                                   .anyRequest().authenticated()
-                   )
-                   .oauth2Login(Customizer.withDefaults()) // login via Google
-                   .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-	        return http.build();
-	    }
-	}
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) // Desabilita CSRF para a integração com o React
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/", "/login**", "/error").permitAll() // Rotas públicas
+                .anyRequest().authenticated() // Todas as outras rotas exigem autenticação
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .defaultSuccessUrl("/home", true) // Redireciona para a página inicial após login
+            );
+
+        return http.build();
+    }
+}
