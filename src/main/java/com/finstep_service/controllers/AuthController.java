@@ -6,8 +6,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class HomeController {
+@RestController()
+public class AuthController {
 
     @GetMapping("/home")
     public String home(Authentication authentication) {
@@ -26,4 +26,24 @@ public class HomeController {
         }
         return "Informações do usuário não disponíveis.";
     }
+    
+    /*
+    @PostMapping("/api/auth/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        // Aqui a lógica para gerar o token é um pouco diferente, pois o Principal não é um OAuth2User
+        String jwt = tokenProvider.generateTokenFromUserDetails((UserDetails) authentication.getPrincipal());
+        
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+    }
+    */
 }
