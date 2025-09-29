@@ -34,7 +34,7 @@ public class AuthController {
          }
          String email = userDetails.getUsername();
          User user = userService.findByEmail(email);
-         return ResponseEntity.ok(user);
+         return ResponseEntity.ok(user.toString());
     }
     
     /*

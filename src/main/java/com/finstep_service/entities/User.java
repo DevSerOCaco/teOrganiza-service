@@ -102,6 +102,12 @@ public class User {
 		this.provider = provider;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", email=" + email + ", password=" + password + ", name=" + name + ", roles="
+				+ roles + ", imageUrl=" + imageUrl + ", provider=" + provider + "]";
+	}
+
 	
 
    // public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
