@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.finstep_service.security.JwtTokenProvider;
-import com.finstep_service.services.UserService;
+import com.finstep_service.services.UserServiceImpl;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     private JwtTokenProvider tokenProvider;
     
     @Autowired
-    private UserService userService; 
+    private UserServiceImpl userService; 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

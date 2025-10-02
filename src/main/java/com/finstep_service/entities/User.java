@@ -6,6 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.finstep_service.controllers.dtos.LoginRequest;
+import com.finstep_service.entities.types.AuthProvider;
+
 @Entity
 @Table(name = "tb_users")
 public class User {
@@ -17,8 +22,12 @@ public class User {
 
     @Column(unique = true)
     private String email;
+    
     @Column()
     private String password;
+    
+    @Column
+    private String fone;
     
     @Column()
     String name;
@@ -52,14 +61,6 @@ public class User {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return email;
-    }
-
-    public void setUsername(String username) {
-        this.email = username;
     }
 
     public String getPassword() {
@@ -101,16 +102,25 @@ public class User {
 	public void setProvider(AuthProvider provider) {
 		this.provider = provider;
 	}
+	
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", email=" + email + ", password=" + password + ", name=" + name + ", roles="
-				+ roles + ", imageUrl=" + imageUrl + ", provider=" + provider + "]";
+   public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
 	
+	
+   @Override
+	public String toString() {
+		return "User [userId=" + userId + ", email=" + email + ", password=" + password + ", fone=" + fone + ", name="
+				+ name + ", roles=" + roles + ", imageUrl=" + imageUrl + ", provider=" + provider + "]";
+	}
 
-   // public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
-     //   return passwordEncoder.matches(loginRequest.password(), this.password);
-    //}
+   public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
+    }
 }

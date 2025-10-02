@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 2. Mapeia o Set<Role> da sua entidade para um Set<GrantedAuthority>
         Set<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                 .collect(Collectors.toSet());
         
         // --- LÓGICA PARA TRATAR A SENHA NULA ---

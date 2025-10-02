@@ -1,20 +1,36 @@
 package com.finstep_service.entities;
 
+import org.springframework.security.core.GrantedAuthority;
 
+import com.finstep_service.entities.types.RoleType;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_roles")
-public class Role {
+public class Role  implements GrantedAuthority{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 20, unique = true, nullable = false)
-    private String name;
+    private RoleType name;
+
+    public Role() {}
+
+    public Role(RoleType name) {
+        this.name = name;
+    }
+
     
+    @Override
+    public String getAuthority() {
+        return this.name.name(); // Retorna o nome do enum como String (ex: "ROLE_ADMIN")
+    }
+    
+    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -23,11 +39,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleType getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleType name) {
         this.name = name;
     }
 }
