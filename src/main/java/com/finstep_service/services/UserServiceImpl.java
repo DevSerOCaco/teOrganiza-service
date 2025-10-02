@@ -48,7 +48,17 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
-            return userOptional.get();
+        	// Lógica pra editar com os dados google um usuario ja existente
+            User existingUser = userOptional.get();
+            String nameFromGoogle = oAuth2User.getAttribute("name");
+            String imageUrlFromGoogle = oAuth2User.getAttribute("picture");
+            if (nameFromGoogle != null && !nameFromGoogle.isEmpty()) {
+                existingUser.setName(nameFromGoogle);
+            }
+            if (existingUser.getImageUrl() == null && imageUrlFromGoogle != null) {
+                existingUser.setImageUrl(imageUrlFromGoogle);
+            }
+            return userRepository.save(existingUser);
         } else {
         	 // Lógica para criar um novo usuário
             User newUser = new User();
@@ -69,9 +79,16 @@ public class UserServiceImpl implements UserService {
 		var basicRole = roleService.findOrCreateByName(RoleType.ROLE_BASIC);
         var userFromDb = userRepository.findByEmail(userDto.email());
         if (userFromDb.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+            User existingUser = userFromDb.get();
+            // Verifica se o provedor do usuário existente é o Google
+            if (existingUser.getProvider() == AuthProvider.GOOGLE) {
+                // Lança um erro específico informando a ação correta
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Este e-mail já foi registrado com o Google. Por favor, faça login com o Google.");
+            } else {
+                // Se o provedor for LOCAL, é uma tentativa de cadastro duplicado
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Este e-mail já está em uso.");
+            }
         }
-
         var user = new User();
         user.setEmail(userDto.email());
         user.setName(userDto.name());
