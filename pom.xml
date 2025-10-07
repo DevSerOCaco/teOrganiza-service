@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com</groupId>
-	<artifactId>finstep-service</artifactId>
+	<artifactId>teOrganiza-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>finstep-service</name>
-	<description>Backend do projeto FinStep</description>
+	<name>teOrganiza-service</name>
+	<description>Backend do projeto teOrganiza</description>
 	<url />
 	<licenses>
 		<license />

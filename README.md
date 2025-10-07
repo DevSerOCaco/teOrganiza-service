@@ -1,2 +1,2 @@
-# finstep-servise
-Backend do Projeto Finstep Seu Aliado Financeiro
+# teOrganiza-service
+Backend do Projeto teOrganiza Seu Aliado Financeiro
