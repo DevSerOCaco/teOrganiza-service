@@ -9,7 +9,7 @@
 		<version>3.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com</groupId>
+	<groupId>com.teOrganiza_service</groupId>
 	<artifactId>teOrganiza-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>teOrganiza-service</name>
@@ -101,6 +101,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.teOrganiza_service.TeOrganizaServiceApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

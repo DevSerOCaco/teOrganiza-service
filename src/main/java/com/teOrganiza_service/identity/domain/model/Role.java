@@ -7,7 +7,7 @@ import com.teOrganiza_service.identity.domain.model.RoleType;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_roles")
+@Table(name = "tb_roles", schema = "identity")
 public class Role  implements GrantedAuthority{
 
     @Id
