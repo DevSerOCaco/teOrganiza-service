@@ -1,7 +1,11 @@
 package com.teOrganiza_service.identity.domain.service;
 
 
+import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -15,9 +19,7 @@ import com.teOrganiza_service.identity.domain.model.Role;
 import com.teOrganiza_service.identity.domain.model.RoleType;
 import com.teOrganiza_service.identity.domain.model.User;
 import com.teOrganiza_service.identity.domain.repository.UserRepository;
-
-import java.util.Optional;
-import java.util.Set;
+import com.teOrganiza_service.shared.integration.events.UserCreatedEvent;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
     
 	@Override
 	public User findByEmail(String email) {
@@ -68,8 +73,9 @@ public class UserServiceImpl implements UserService {
             newUser.setProvider(AuthProvider.GOOGLE);
             Role userRole = roleService.findOrCreateByName(RoleType.ROLE_BASIC);
             newUser.setRoles(Set.of(userRole));
-            
-            return userRepository.save(newUser);
+            User createdUser = userRepository.save(newUser);
+            this.eventPublisher.publishEvent(new UserCreatedEvent(newUser.getUserId(), newUser.getName(), newUser.getEmail()));
+            return createdUser;
         }
     }
 
@@ -97,8 +103,9 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(basicRole));
         user.setProvider(AuthProvider.LOCAL);
 
-        
-		return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        this.eventPublisher.publishEvent(new UserCreatedEvent(user.getUserId(), user.getName(), user.getEmail()));
+        return createdUser;
 	}
 
 	@Override

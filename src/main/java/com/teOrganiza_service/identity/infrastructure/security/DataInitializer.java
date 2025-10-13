@@ -1,4 +1,4 @@
-package com.teOrganiza_service.shared.config;
+package com.teOrganiza_service.identity.infrastructure.security;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

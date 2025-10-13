@@ -1,4 +1,4 @@
-package com.teOrganiza_service.shared.config;
+package com.teOrganiza_service.identity.infrastructure.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.teOrganiza_service.identity.domain.service.UserServiceImpl;
-import com.teOrganiza_service.identity.infrastructure.security.JwtTokenProvider;
 
 import java.io.IOException;
 

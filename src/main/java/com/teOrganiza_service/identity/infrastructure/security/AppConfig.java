@@ -1,4 +1,4 @@
-package com.teOrganiza_service.shared.config;
+package com.teOrganiza_service.identity.infrastructure.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
