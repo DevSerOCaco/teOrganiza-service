@@ -1,6 +1,7 @@
 package com.teOrganiza_service.finance.domain.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account findByUserId(UUID userId) {
+	public List<Account> findByUserId(UUID userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
