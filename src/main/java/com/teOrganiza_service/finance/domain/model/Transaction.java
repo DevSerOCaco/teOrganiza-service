@@ -71,6 +71,9 @@ public class Transaction {
     @JoinColumn(name = "recurrence_rule_id") // nullable = true (padrão)
     private RecurrenceRule recurrenceRule;
 
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private java.util.List<Payment> payments = new java.util.ArrayList<>();
+
     // --- Construtores, Getters e Setters ---
     
     public Transaction() {
@@ -83,6 +86,18 @@ public class Transaction {
         // (embora essa lógica geralmente fique no Service)
     }
 
+    @Transient
+    public BigDecimal getPaidAmount() {
+        return payments.stream()
+                       .map(Payment::getAmount)
+                       .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Transient
+    public BigDecimal getBalance() {
+        return getAmount().subtract(getPaidAmount());
+    }
+
 	public Long getId() {
 		return id;
 	}
@@ -90,6 +105,14 @@ public class Transaction {
 	public void setId(Long id) {
 		this.id = id;
 	}
+    
+    public java.util.List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(java.util.List<Payment> payments) {
+        this.payments = payments;
+    }
 
 	public String getDescription() {
 		return description;
