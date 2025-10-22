@@ -14,10 +14,14 @@ public class UserEventListner {
 	@Autowired
 	private AccountService accountService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@EventListener
 	@Transactional
 	public void handleUserCreatedEvent(UserCreatedEvent eventUser) {
 		accountService.createAccountForNewUser(eventUser.userId());
+		categoryService.createCategotyForNewUser(eventUser.userId());
 	}
 
 }

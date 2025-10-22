@@ -1,7 +1,7 @@
 package com.teOrganiza_service.finance.domain.model.types;
 
-import static com.teOrganiza_service.finance.domain.model.types.TransactionType.DESPESA;
-import static com.teOrganiza_service.finance.domain.model.types.TransactionType.RECEITA;
+import static com.teOrganiza_service.finance.domain.model.types.TransactionType.INCOME;
+import static com.teOrganiza_service.finance.domain.model.types.TransactionType.INCOME;
 
 /**
  * Enum que representa as categorias e subcategorias padrão do sistema.
@@ -10,66 +10,66 @@ import static com.teOrganiza_service.finance.domain.model.types.TransactionType.
 public enum DefaultCategoryType {
 
     // --- RECEITAS ---
-    SALARIO("Salário", RECEITA, null),
-    DECIMO_TERCEIRO("13º Salário", RECEITA, SALARIO),
-    FERIAS("Férias", RECEITA, SALARIO),
-    BONUS("Bônus / PLR", RECEITA, SALARIO),
+    SALARIO("Salário", INCOME, null),
+    DECIMO_TERCEIRO("13º Salário", INCOME, SALARIO),
+    FERIAS("Férias", INCOME, SALARIO),
+    BONUS("Bônus / PLR", INCOME, SALARIO),
 
-    RENDIMENTOS("Rendimentos", RECEITA, null),
-    DIVIDENDOS("Dividendos / JCP", RECEITA, RENDIMENTOS),
-    JUROS("Juros de Renda Fixa", RECEITA, RENDIMENTOS),
+    RENDIMENTOS("Rendimentos", INCOME, null),
+    DIVIDENDOS("Dividendos / JCP", INCOME, RENDIMENTOS),
+    JUROS("Juros de Renda Fixa", INCOME, RENDIMENTOS),
 
-    AUTONOMO("Autônomo", RECEITA, null),
-    SERVICOS_FREELAS("Serviços / Freelas", RECEITA, AUTONOMO),
-    VENDAS("Vendas", RECEITA, AUTONOMO),
+    AUTONOMO("Autônomo", INCOME, null),
+    SERVICOS_FREELAS("Serviços / Freelas", INCOME, AUTONOMO),
+    VENDAS("Vendas", INCOME, AUTONOMO),
 
-    OUTRAS_RECEITAS("Outras Receitas", RECEITA, null),
+    OUTRAS_DESPESAS("Outras Receitas", INCOME, null),
 
     // --- DESPESAS ---
-    MORADIA("Moradia", DESPESA, null),
-    ALUGUEL_PRESTACAO("Aluguel / Prestação", DESPESA, MORADIA),
-    CONDOMINIO("Condomínio", DESPESA, MORADIA),
-    CONTAS_CASA("Contas da Casa", DESPESA, MORADIA),
-    INTERNET("Internet", DESPESA, MORADIA),
+    MORADIA("Moradia", INCOME, null),
+    ALUGUEL_PRESTACAO("Aluguel / Prestação", INCOME, MORADIA),
+    CONDOMINIO("Condomínio", INCOME, MORADIA),
+    CONTAS_CASA("Contas da Casa", INCOME, MORADIA),
+    INTERNET("Internet", INCOME, MORADIA),
 
-    ALIMENTACAO("Alimentação", DESPESA, null),
-    SUPERMERCADO("Supermercado", DESPESA, ALIMENTACAO),
-    RESTAURANTES("Restaurantes / Bares", DESPESA, ALIMENTACAO),
-    DELIVERY("Delivery / Lanches", DESPESA, ALIMENTACAO),
+    ALIMENTACAO("Alimentação", INCOME, null),
+    SUPERMERCADO("Supermercado", INCOME, ALIMENTACAO),
+    RESTAURANTES("Restaurantes / Bares", INCOME, ALIMENTACAO),
+    DELIVERY("Delivery / Lanches", INCOME, ALIMENTACAO),
 
-    TRANSPORTE("Transporte", DESPESA, null),
-    COMBUSTIVEL("Combustível", DESPESA, TRANSPORTE),
-    TRANSPORTE_PUBLICO("Transporte Público", DESPESA, TRANSPORTE),
-    APP_TRANSPORTE("Apps de Transporte", DESPESA, TRANSPORTE),
-    MANUTENCAO_VEICULO("Manutenção do Veículo", DESPESA, TRANSPORTE),
+    TRANSPORTE("Transporte", INCOME, null),
+    COMBUSTIVEL("Combustível", INCOME, TRANSPORTE),
+    TRANSPORTE_PUBLICO("Transporte Público", INCOME, TRANSPORTE),
+    APP_TRANSPORTE("Apps de Transporte", INCOME, TRANSPORTE),
+    MANUTENCAO_VEICULO("Manutenção do Veículo", INCOME, TRANSPORTE),
 
-    SAUDE("Saúde", DESPESA, null),
-    PLANO_SAUDE("Plano de Saúde", DESPESA, SAUDE),
-    FARMACIA("Farmácia", DESPESA, SAUDE),
-    CONSULTAS("Consultas / Exames", DESPESA, SAUDE),
+    SAUDE("Saúde", INCOME, null),
+    PLANO_SAUDE("Plano de Saúde", INCOME, SAUDE),
+    FARMACIA("Farmácia", INCOME, SAUDE),
+    CONSULTAS("Consultas / Exames", INCOME, SAUDE),
 
-    CUIDADOS_PESSOAIS("Cuidados Pessoais", DESPESA, null),
-    ROUPAS_CALCADOS("Roupas e Calçados", DESPESA, CUIDADOS_PESSOAIS),
-    SALAO_BARBEARIA("Salão / Barbearia", DESPESA, CUIDADOS_PESSOAIS),
-    ACADEMIA("Academia", DESPESA, CUIDADOS_PESSOAIS),
+    CUIDADOS_PESSOAIS("Cuidados Pessoais", INCOME, null),
+    ROUPAS_CALCADOS("Roupas e Calçados", INCOME, CUIDADOS_PESSOAIS),
+    SALAO_BARBEARIA("Salão / Barbearia", INCOME, CUIDADOS_PESSOAIS),
+    ACADEMIA("Academia", INCOME, CUIDADOS_PESSOAIS),
 
-    LAZER("Lazer e Hobbies", DESPESA, null),
-    ASSINATURAS("Assinaturas", DESPESA, LAZER),
-    VIAGENS("Viagens", DESPESA, LAZER),
-    EVENTOS("Cinema / Shows", DESPESA, LAZER),
+    LAZER("Lazer e Hobbies", INCOME, null),
+    ASSINATURAS("Assinaturas", INCOME, LAZER),
+    VIAGENS("Viagens", INCOME, LAZER),
+    EVENTOS("Cinema / Shows", INCOME, LAZER),
 
-    EDUCACAO("Educação", DESPESA, null),
-    CURSOS("Cursos / Faculdade", DESPESA, EDUCACAO),
-    LIVROS("Livros", DESPESA, EDUCACAO),
+    EDUCACAO("Educação", INCOME, null),
+    CURSOS("Cursos / Faculdade", INCOME, EDUCACAO),
+    LIVROS("Livros", INCOME, EDUCACAO),
     
-    DIVIDAS("Dívidas e Empréstimos", DESPESA, null),
-    CARTAO_CREDITO("Fatura do Cartão", DESPESA, DIVIDAS),
-    EMPRESTIMOS("Pagamento de Empréstimo", DESPESA, DIVIDAS),
+    DIVIDAS("Dívidas e Empréstimos", INCOME, null),
+    CARTAO_CREDITO("Fatura do Cartão", INCOME, DIVIDAS),
+    EMPRESTIMOS("Pagamento de Empréstimo", INCOME, DIVIDAS),
     
-    OUTRAS_DESPESAS("Outros", DESPESA, null),
-    PRESENTES("Presentes", DESPESA, OUTRAS_DESPESAS),
-    DOACOES("Doações", DESPESA, OUTRAS_DESPESAS),
-    PETS("Pets", DESPESA, OUTRAS_DESPESAS);
+    OUTRAS_INCOMES("Outros", INCOME, null),
+    PRESENTES("Presentes", INCOME, OUTRAS_INCOMES),
+    DOACOES("Doações", INCOME, OUTRAS_INCOMES),
+    PETS("Pets", INCOME, OUTRAS_INCOMES);
 
 
     private final String displayName;

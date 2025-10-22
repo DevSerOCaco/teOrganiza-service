@@ -37,9 +37,18 @@ CREATE TABLE identity.tb_users_roles (
 -- =====================================================================================
 
 -- Table: accounts
-CREATE TABLE finance.accounts (
+CREATE TABLE finance.tb_account (
     id UUID PRIMARY KEY,
     user_id UUID,
     name VARCHAR(255),
     balance DECIMAL(19, 2)
+);
+
+-- Table: category
+CREATE TABLE finance.tb_category (
+    id UUID PRIMARY KEY,
+    user_id UUID,
+    name VARCHAR(255),
+    father_id UUID,
+    FOREIGN KEY (father_id) REFERENCES finance.tb_category(id)
 );
