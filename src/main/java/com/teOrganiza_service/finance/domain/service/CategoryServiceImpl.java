@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.teOrganiza_service.finance.domain.model.Category;
 import com.teOrganiza_service.finance.domain.model.dto.CategoryDto;
-import com.teOrganiza_service.finance.domain.model.dto.CreateAccountDto;
-import com.teOrganiza_service.finance.domain.model.dto.UpdateAccountDto;
 import com.teOrganiza_service.finance.domain.model.types.DefaultCategoryType;
 import com.teOrganiza_service.finance.domain.repository.CategoryRepository;
 

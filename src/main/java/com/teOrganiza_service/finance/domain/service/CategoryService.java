@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import com.teOrganiza_service.finance.domain.model.Category;
 import com.teOrganiza_service.finance.domain.model.dto.CategoryDto;
-import com.teOrganiza_service.finance.domain.model.dto.CreateAccountDto;
-import com.teOrganiza_service.finance.domain.model.dto.UpdateAccountDto;
 
 public interface CategoryService {
 	Category save(CategoryDto category);

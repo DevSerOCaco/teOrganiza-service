@@ -12,7 +12,7 @@ import com.teOrganiza_service.identity.api.dto.LoginRequest;
 import com.teOrganiza_service.identity.domain.model.AuthProvider;
 
 @Entity
-@Table(name = "tb_users", schema = "identity")
+@Table(name = "users", schema = "identity")
 public class User {
 
     @Id
@@ -34,7 +34,7 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-        name = "tb_users_roles",
+        name = "users_roles",
         schema = "identity",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")

@@ -2,22 +2,25 @@ package com.teOrganiza_service.finance.domain.model;
 
 import com.teOrganiza_service.finance.domain.model.types.RecurrenceFrequency;
 import com.teOrganiza_service.finance.domain.model.types.TransactionType;
-import com.teOrganiza_service.identity.domain.model.User;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
-@Table(name = "recurrence_rules")
+@Table(name = "recurrence_rules", schema = "finance")
 public class RecurrenceRule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    
+    @Column(name = "user_id")
+    private UUID userId;
 
     // --- Dados do "Molde" da Transação ---
     @Column(nullable = false, length = 100)
@@ -62,9 +65,6 @@ public class RecurrenceRule implements Serializable {
     private LocalDate nextGenerationDate;
     
     // --- Relacionamentos ---
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
@@ -82,12 +82,22 @@ public class RecurrenceRule implements Serializable {
     @JoinColumn(name = "transaction_group_id", nullable = false)
     private TransactionGroup transactionGroup;
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
+	}
+	
+	
+
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 
 	public String getDescription() {
@@ -160,14 +170,6 @@ public class RecurrenceRule implements Serializable {
 
 	public void setNextGenerationDate(LocalDate nextGenerationDate) {
 		this.nextGenerationDate = nextGenerationDate;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Account getAccount() {

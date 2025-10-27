@@ -5,8 +5,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.teOrganiza_service.finance.domain.model.Payment;
+import com.teOrganiza_service.finance.domain.model.RecurrenceRule;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Payment, UUID> {
+public interface RecurrenceRuleRepository extends JpaRepository<RecurrenceRule, UUID> {
 }

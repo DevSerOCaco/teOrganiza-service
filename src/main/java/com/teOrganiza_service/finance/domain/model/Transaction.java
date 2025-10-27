@@ -5,16 +5,24 @@ import com.teOrganiza_service.finance.domain.model.types.TransactionType;
 import com.teOrganiza_service.identity.domain.model.User;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "transactions")
-public class Transaction {
+@Table(name = "transactions", schema = "finance")
+public class Transaction implements Serializable {
+	private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    
+    @Column(name = "user_id")
+    private UUID userId;
 
     @Column(nullable = false, length = 100)
     private String description;
@@ -43,10 +51,6 @@ public class Transaction {
 
     // --- Relacionamentos Essenciais ---
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
@@ -72,7 +76,7 @@ public class Transaction {
     private RecurrenceRule recurrenceRule;
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private java.util.List<Payment> payments = new java.util.ArrayList<>();
+    private List<Payment> payments = new java.util.ArrayList<>();
 
     // --- Construtores, Getters e Setters ---
     
@@ -98,15 +102,25 @@ public class Transaction {
         return getAmount().subtract(getPaidAmount());
     }
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
     
-    public java.util.List<Payment> getPayments() {
+	
+	
+    public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
+	}
+
+	public java.util.List<Payment> getPayments() {
         return payments;
     }
 
@@ -152,14 +166,6 @@ public class Transaction {
 
 	public void setStatus(TransactionStatus status) {
 		this.status = status;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Account getAccount() {

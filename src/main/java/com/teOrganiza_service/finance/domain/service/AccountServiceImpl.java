@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.teOrganiza_service.finance.domain.model.Account;
+import com.teOrganiza_service.finance.domain.model.dto.AccountDto;
 import com.teOrganiza_service.finance.domain.model.dto.CreateAccountDto;
-import com.teOrganiza_service.finance.domain.model.dto.UpdateAccountDto;
 import com.teOrganiza_service.finance.domain.repository.AccountRepository;
-import com.teOrganiza_service.identity.api.dto.CreateUserDto;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -29,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account update(UpdateAccountDto account) {
+	public Account update(AccountDto account) {
 		// TODO Auto-generated method stub
 		return null;
 	}

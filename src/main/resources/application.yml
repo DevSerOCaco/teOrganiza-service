@@ -1,0 +1,21 @@
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
+spring:
+  application:
+    name: teOrganiza-service
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 506871784098-vdgbnspt8p61p6hcuqgh69vqb6f6e912.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope: openid,profile,email
+  profiles:
+    active: dev
+app:
+  jwt:
+    secret: ${JWT_SECRET:FeDnp5jLQoYPP5DhdXGW/MdrwUNCARqDzTkcg6XyhAU=}
+    expiration-ms: 86400000

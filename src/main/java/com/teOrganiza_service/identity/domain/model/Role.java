@@ -3,17 +3,17 @@ package com.teOrganiza_service.identity.domain.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.teOrganiza_service.identity.domain.model.RoleType;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_roles", schema = "identity")
+@Table(name = "roles", schema = "identity")
 public class Role  implements GrantedAuthority{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, unique = true, nullable = false)
@@ -32,11 +32,11 @@ public class Role  implements GrantedAuthority{
     }
     
     // Getters e Setters
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

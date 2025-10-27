@@ -3,7 +3,7 @@ package com.teOrganiza_service.finance.domain.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 import com.teOrganiza_service.identity.domain.model.User;
 
@@ -20,13 +20,16 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "transaction_groups")
+@Table(name = "transaction_groups", schema = "finance")
 public class TransactionGroup implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    
+    @Column(name = "user_id")
+    private UUID userId;
 
     /**
      * Descrição para identificar o grupo.
@@ -35,12 +38,6 @@ public class TransactionGroup implements Serializable {
     @Column(nullable = false, length = 100)
     private String description;
 
-    /**
-     * Usuário dono deste grupo de lançamento.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user; // Assumindo que você tem a entidade User
 
     /**
      * Lista de transações que pertencem a este grupo.
@@ -60,12 +57,22 @@ public class TransactionGroup implements Serializable {
         transaction.setTransactionGroup(this);
     }
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
+	}
+	
+	
+
+	public UUID getUserId() {
+		return userId;
+	}
+
+	public void setUserId(UUID userId) {
+		this.userId = userId;
 	}
 
 	public String getDescription() {
@@ -76,13 +83,6 @@ public class TransactionGroup implements Serializable {
 		this.description = description;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public List<Transaction> getTransactions() {
 		return transactions;

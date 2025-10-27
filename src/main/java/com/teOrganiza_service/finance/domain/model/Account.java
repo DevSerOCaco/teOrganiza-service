@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_account", schema = "finance")
+@Table(name = "account", schema = "finance")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +20,7 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     
+    @Column(name = "user_id")
     private UUID userId;
 
     private String name;
