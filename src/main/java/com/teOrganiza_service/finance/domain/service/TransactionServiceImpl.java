@@ -15,6 +15,7 @@ import com.teOrganiza_service.finance.domain.model.Payment;
 import com.teOrganiza_service.finance.domain.model.RecurrenceRule;
 import com.teOrganiza_service.finance.domain.model.Transaction;
 import com.teOrganiza_service.finance.domain.model.TransactionGroup;
+import com.teOrganiza_service.finance.domain.model.dto.AccountDto;
 import com.teOrganiza_service.finance.domain.model.dto.CreateTransactionDto;
 import com.teOrganiza_service.finance.domain.model.dto.TransactionDto;
 import com.teOrganiza_service.finance.domain.repository.TransactionRepository;
@@ -37,10 +38,10 @@ public class TransactionServiceImpl implements TransactionService {
 	private RecurrenceRuleService recurrenceRuleService;
 
 	@Override
-	public Transaction save(CreateTransactionDto dto) {
+	public TransactionDto save(CreateTransactionDto dto) {
 		
 		Transaction newTransaction = new Transaction();
-		Account account = this.accountService.findById(dto.accountId());
+		AccountDto account = this.accountService.findById(dto.accountId());
 		Category category = this.categoryService.findById(dto.categoryId());
 		TransactionGroup transactionGroup = new TransactionGroup();
 		RecurrenceRule recurrenceRule = new RecurrenceRule();
@@ -69,23 +70,23 @@ public class TransactionServiceImpl implements TransactionService {
 		newTransaction.setDate(dto.date());
 		newTransaction.setType(dto.type());
 		newTransaction.setStatus(dto.status());
-		newTransaction.setAccount(account);
+		newTransaction.setAccount(account.toEntity());
 		newTransaction.setCategory(category);
 		newTransaction.setTransactionGroup(transactionGroup);
 		newTransaction.setRecurrenceRule(recurrenceRule);
 		
 		
 		newTransaction.setPayments(payments);
-		return this.transactionRepository.save(newTransaction);
+		return TransactionDto.fromEntity(this.transactionRepository.save(newTransaction));
 	}
 
 	@Override
-	public Transaction update(TransactionDto dto) {
+	public TransactionDto update(TransactionDto dto) {
 		
 		Transaction transaction = this.transactionRepository.findById(dto.id())
 		.orElseThrow(() -> new RuntimeException("Transaction not found"));
 
-		Account account = this.accountService.findById(dto.accountId());
+		AccountDto account = this.accountService.findById(dto.accountId());
 		Category category = this.categoryService.findById(dto.categoryId());
 		TransactionGroup transactionGroup = new TransactionGroup();
 		RecurrenceRule recurrenceRule = new RecurrenceRule();
@@ -103,22 +104,22 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setDate(dto.date());
 		transaction.setType(dto.type());
 		transaction.setStatus(dto.status());
-		transaction.setAccount(account);
+		transaction.setAccount(account.toEntity());
 		transaction.setCategory(category);
 		transaction.setTransactionGroup(transactionGroup);
 		transaction.setRecurrenceRule(recurrenceRule);
 
-		return this.transactionRepository.save(transaction);
+		return TransactionDto.fromEntity(this.transactionRepository.save(transaction));
 	}
 
 	@Override
-	public Optional<Transaction> findById(UUID id) {
-		return this.transactionRepository.findById(id);
+	public Optional<TransactionDto> findById(UUID id) {
+		return this.transactionRepository.findById(id).map(TransactionDto::fromEntity);
 	}
 
 	@Override
-	public Page<Transaction> findAllByUserId(UUID userId,  Pageable pageable) {
-		return this.transactionRepository.findAllByUserId(userId, pageable);
+	public Page<TransactionDto> findAllByUserId(UUID userId,  Pageable pageable) {
+		return this.transactionRepository.findAllByUserId(userId, pageable).map(TransactionDto::fromEntity);
 	}
 
 	@Override

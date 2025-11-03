@@ -29,6 +29,14 @@ public class Category implements Serializable{
     @ManyToOne
     @JoinColumn(name = "father_id")
     private Category FatherCategory;
+    
+	public Category() {}
+
+	public Category(UUID id, UUID userId, String name) {
+		this.id = id;
+		this.userId = userId;
+		this.name = name;
+	}
 
 	public UUID getId() {
 		return id;

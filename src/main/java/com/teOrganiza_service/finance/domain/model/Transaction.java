@@ -2,7 +2,6 @@ package com.teOrganiza_service.finance.domain.model;
 
 import com.teOrganiza_service.finance.domain.model.types.TransactionStatus;
 import com.teOrganiza_service.finance.domain.model.types.TransactionType;
-import com.teOrganiza_service.identity.domain.model.User;
 
 import jakarta.persistence.*;
 

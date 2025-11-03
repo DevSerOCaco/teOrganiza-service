@@ -30,7 +30,14 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public UUID getId() {
+    public Account(UUID id, UUID userId, String name, BigDecimal balance) {
+		this.id = id;
+		this.userId = userId;
+		this.name = name;
+		this.balance = balance;
+	}
+
+	public UUID getId() {
         return id;
     }
 

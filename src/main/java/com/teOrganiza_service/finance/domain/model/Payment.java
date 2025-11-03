@@ -50,7 +50,23 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public UUID getId() {
+    
+
+	public Payment(UUID id, UUID userId, Transaction transaction, BigDecimal amount, LocalDate paymentDate,
+			String description, LocalDateTime createdAt) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.transaction = transaction;
+		this.amount = amount;
+		this.paymentDate = paymentDate;
+		this.description = description;
+		this.createdAt = createdAt;
+	}
+
+
+
+	public UUID getId() {
         return id;
     }
 

@@ -13,9 +13,9 @@ import com.teOrganiza_service.finance.domain.model.dto.TransactionDto;
 
 public interface TransactionService {
 
-	Transaction save(CreateTransactionDto dto);
-	Transaction update(TransactionDto dto);
-	Optional<Transaction> findById(UUID id);
+	TransactionDto save(CreateTransactionDto dto);
+	TransactionDto update(TransactionDto dto);
+	Optional<TransactionDto> findById(UUID id);
 	void delete(UUID id);
-	Page<Transaction> findAllByUserId(UUID userId, Pageable pageable);
+	Page<TransactionDto> findAllByUserId(UUID userId, Pageable pageable);
 }
