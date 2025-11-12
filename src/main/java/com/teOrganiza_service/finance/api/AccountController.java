@@ -34,18 +34,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.teOrganiza_service.finance.domain.model.dto.AccountDto;
 import com.teOrganiza_service.finance.domain.model.dto.CreateAccountDto;
 import com.teOrganiza_service.finance.domain.service.AccountService;
-import com.teOrganiza_service.identity.domain.model.User;
-import com.teOrganiza_service.identity.domain.service.UserService;
+import com.teOrganiza_service.identity.infrastructure.security.UserPrincipal;
 
-@RestController()
+@RestController
 @RequestMapping("/accounts")
 public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
-	
-	@Autowired
-	private UserService userService;
 	
 	@GetMapping
 	public ResponseEntity<Page<AccountDto>> findAll(Pageable pageable) {
@@ -66,13 +62,12 @@ public class AccountController {
 	}
 	
 	@GetMapping("/my-accounts")
-	public ResponseEntity<Page<AccountDto>> findByAuthenticatedUser(@AuthenticationPrincipal UserDetails userDetails, 
+	public ResponseEntity<Page<AccountDto>> findByAuthenticatedUser(@AuthenticationPrincipal UserPrincipal principal, 
 			@RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
 		
-		User user = userService.findByEmail(userDetails.getUsername());
 		Pageable pageable = PageRequest.of(page, size);
-		Page<AccountDto> accounts = accountService.findByUserId(user.getUserId(), page, size);
+		Page<AccountDto> accounts = accountService.findByUserId(principal.getUserId(), page, size);
 		return ResponseEntity.ok(accounts);
 	}
 }

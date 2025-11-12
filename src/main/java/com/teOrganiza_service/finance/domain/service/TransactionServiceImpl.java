@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.teOrganiza_service.finance.domain.model.Account;
 import com.teOrganiza_service.finance.domain.model.Category;
@@ -19,7 +20,7 @@ import com.teOrganiza_service.finance.domain.model.dto.AccountDto;
 import com.teOrganiza_service.finance.domain.model.dto.CreateTransactionDto;
 import com.teOrganiza_service.finance.domain.model.dto.TransactionDto;
 import com.teOrganiza_service.finance.domain.repository.TransactionRepository;
-
+@Service
 public class TransactionServiceImpl implements TransactionService {
 	
 	@Autowired

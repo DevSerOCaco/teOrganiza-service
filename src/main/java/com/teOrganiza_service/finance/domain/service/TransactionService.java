@@ -6,11 +6,12 @@ import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.teOrganiza_service.finance.domain.model.Transaction;
 import com.teOrganiza_service.finance.domain.model.dto.CreateTransactionDto;
 import com.teOrganiza_service.finance.domain.model.dto.TransactionDto;
-
+@Service
 public interface TransactionService {
 
 	TransactionDto save(CreateTransactionDto dto);

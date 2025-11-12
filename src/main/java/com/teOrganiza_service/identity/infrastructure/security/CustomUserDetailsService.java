@@ -31,23 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o e-mail: " + email));
 
-        // 2. Mapeia o Set<Role> da sua entidade para um Set<GrantedAuthority>
-        Set<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toSet());
-        
-        // --- LÓGICA PARA TRATAR A SENHA NULA ---
-        // Se a senha do usuário no banco for nula (caso de login com Google),
-        // nós geramos uma senha aleatória e segura apenas para construir o objeto UserDetails.
-        // Esta senha NUNCA é usada para validação.
-        String password = user.getPassword() != null ? user.getPassword() : UUID.randomUUID().toString();
-
-        // 3. Retorna um objeto UserDetails que o Spring Security entende
-        //    Passamos o email, a senha e a lista de authorities.
-        return new org.springframework.security.core.userdetails.User(
-            user.getEmail(),
-            password,
-            authorities
-        );
+        // 2. Retorna um objeto UserPrincipal que o Spring Security entende
+        return UserPrincipal.create(user);
     }
 }
